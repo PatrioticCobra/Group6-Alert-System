@@ -37,16 +37,24 @@ def Emergency(clients, server_socket, buzzer):
     for client in clients:
         server_socket.sendto(alert_message.encode(), client)
     
-    # Switching on the buzzer
+    # Switching on the buzzer and making it sound like a siren
     try:
+        # Siren sound
         for _ in range(3):
-            buzzer.frequency = 1000  # 1 kHz tone
-            buzzer.value = 0.5       # 50% duty cycle
-            time.sleep(0.3)          # Beeping
-            buzzer.off()
-            time.sleep(0.2)          # Pause between beeps
+            
+            for freq in range(500, 2000, 50):
+                buzzer.frequency = freq
+                buzzer.value = 0.5  
+                time.sleep(0.01)
+            
+            for freq in range(2000, 500, -50):
+                buzzer.frequency = freq
+                buzzer.value = 0.5
+                time.sleep(0.01)
+        
     finally:
-        buzzer.off()  # Switches off the buzzer
+        buzzer.off()
+
 
 def main():
     server_socket = Create_server()
