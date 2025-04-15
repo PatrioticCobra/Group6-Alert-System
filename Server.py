@@ -42,7 +42,7 @@ def Emergency(clients, server_socket, buzzer):
         for _ in range(3):
             buzzer.frequency = 1000  # 1 kHz tone
             buzzer.value = 0.5       # 50% duty cycle
-            time.sleep(0.3)          # Beep duration
+            time.sleep(0.3)          # Beeping
             buzzer.off()
             time.sleep(0.2)          # Pause between beeps
     finally:
